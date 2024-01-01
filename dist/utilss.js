@@ -27,9 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serializeCookies = void 0;
-const querystring = __importStar(require("query-string"));
+const query_string_1 = __importDefault(require("query-string"));
 const URL = __importStar(require("url"));
-const yargs = __importStar(require("yargs"));
+const yargs_1 = __importDefault(require("yargs"));
 const cookie_1 = __importDefault(require("cookie"));
 //import yargs from '@curlconverter/yargs-parser'
 //const URL = require('ur')
@@ -160,7 +160,7 @@ const buildRequest = (parsedArguments) => {
     if (urlObject.query && urlObject.query.endsWith('&')) {
         urlObject.query = urlObject.query.slice(0, -1);
     }
-    const query = querystring.parse(urlObject.query, { sort: false });
+    const query = query_string_1.default.parse(urlObject.query, { sort: false });
     for (const param in query) {
         if (query[param] === null) {
             query[param] = '';
@@ -247,7 +247,7 @@ const parseCurlCommand = (curlCommand) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments = yargs
+    const parsedArguments = yargs_1.default
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')

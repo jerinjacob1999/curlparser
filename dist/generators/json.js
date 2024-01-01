@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = __importDefault(require("../util"));
-const query_string_1 = require("query-string");
+const query_string_1 = __importDefault(require("query-string"));
 const jsesc_1 = __importDefault(require("jsesc"));
 //import 'string.prototype.startswith'
 function repr(value, isKey = false) {
@@ -43,7 +43,7 @@ function getDataString(request) {
      return filePath;
      }
      */
-    const parsedQueryString = (0, query_string_1.parse)(request.data, { sort: false });
+    const parsedQueryString = query_string_1.default.parse(request.data, { sort: false });
     const keyCount = Object.keys(parsedQueryString).length;
     const singleKeyOnly = keyCount === 1 && !parsedQueryString[Object.keys(parsedQueryString)[0]];
     const singularData = request.isDataBinary || singleKeyOnly;

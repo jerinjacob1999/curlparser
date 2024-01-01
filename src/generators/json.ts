@@ -1,7 +1,7 @@
 // Author: ssi-anik (sirajul.islam.anik@gmail.com)
 
 import  parseCurlCommand  from '../util'
-import { parse } from 'query-string'
+import queryString from 'query-string'
 import jsesc from 'jsesc'
 import { requestInterface, requestJson } from '../interfaces'
 
@@ -46,7 +46,7 @@ function getDataString (request) {
    }
    */
 
-  const parsedQueryString = parse(request.data, { sort: false })
+  const parsedQueryString = queryString.parse(request.data, { sort: false })
   const keyCount = Object.keys(parsedQueryString).length
   const singleKeyOnly = keyCount === 1 && !parsedQueryString[Object.keys(parsedQueryString)[0]]
   const singularData = request.isDataBinary || singleKeyOnly

@@ -28,21 +28,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serializeCookies = void 0;
 const cookie_1 = require("cookie");
-const querystring = __importStar(require("query-string"));
+const query_string_1 = __importDefault(require("query-string"));
 const URL = __importStar(require("url"));
 const yargs_1 = __importDefault(require("yargs"));
-const helpers_1 = require("yargs/helpers");
-//import yargs from '@curlconverter/yargs-parser'
-//const URL = require('ur')
-//const querystring = require('query-string')
-// const nunjucks = require('nunjucks')
-// const env = nunjucks.configure(['templates/'], { // set folders with templates
-//   autoescape: false
-// })
-// env.addFilter('isArr', something => Array.isArray(something))
-// env.addFilter('isString', something => typeof something === 'string')
-// env.addFilter('isNumber', something => typeof something === 'number')
 const parseCurlCommand = (curlCommand) => {
+    var _a;
     // Remove newlines (and from continuations)
     curlCommand = curlCommand.replace(/\\\r|\\\n/g, '');
     // Remove extra whitespace
@@ -61,7 +51,7 @@ const parseCurlCommand = (curlCommand) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
+    const parsedArguments = yargs_1.default
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')
@@ -74,7 +64,7 @@ const parseCurlCommand = (curlCommand) => {
     if (!url) {
         for (const argName in parsedArguments) {
             if (typeof parsedArguments[argName] === 'string') {
-                if (parsedArguments[argName].indexOf('http') === 0 || parsedArguments[argName].indexOf('www.') === 0) {
+                if (((_a = parsedArguments[argName]) === null || _a === void 0 ? void 0 : _a.indexOf('http')) === 0 || parsedArguments[argName].indexOf('www.') === 0) {
                     url = parsedArguments[argName];
                 }
             }
@@ -196,7 +186,7 @@ const parseCurlCommand = (curlCommand) => {
     if (urlObject.query && urlObject.query.endsWith('&')) {
         urlObject.query = urlObject.query.slice(0, -1);
     }
-    const query = querystring.parse(urlObject.query, { sort: false });
+    const query = query_string_1.default.parse(urlObject.query, { sort: false });
     for (const param in query) {
         if (query[param] === null) {
             query[param] = '';

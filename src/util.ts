@@ -1,20 +1,8 @@
 import { parse } from 'cookie'
-import * as querystring from 'query-string'
+import querystring from 'query-string'
 import * as URL from 'url'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
+import yargs, { Arguments } from 'yargs'
 import { requestInterface } from './interfaces'
-//import yargs from '@curlconverter/yargs-parser'
-//const URL = require('ur')
-//const querystring = require('query-string')
-// const nunjucks = require('nunjucks')
-
-// const env = nunjucks.configure(['templates/'], { // set folders with templates
-//   autoescape: false
-// })
-// env.addFilter('isArr', something => Array.isArray(something))
-// env.addFilter('isString', something => typeof something === 'string')
-// env.addFilter('isNumber', something => typeof something === 'number')
 
 const parseCurlCommand = (curlCommand: string) => {
     // Remove newlines (and from continuations)
@@ -38,7 +26,7 @@ const parseCurlCommand = (curlCommand: string) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments: any = yargs(hideBin(process.argv))
+    const parsedArguments: any = yargs
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')
@@ -54,7 +42,7 @@ const parseCurlCommand = (curlCommand: string) => {
     if (!url) {
         for (const argName in parsedArguments) {
             if (typeof parsedArguments[argName] === 'string') {
-                if (parsedArguments[argName].indexOf('http') === 0 || parsedArguments[argName].indexOf('www.') === 0) {
+                if (parsedArguments[argName]?.indexOf('http') === 0 || parsedArguments[argName].indexOf('www.') === 0) {
                     url = parsedArguments[argName]
                 }
             }
