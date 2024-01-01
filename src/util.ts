@@ -1,7 +1,8 @@
 import { parse } from 'cookie'
 import * as querystring from 'query-string'
 import * as URL from 'url'
-import * as yargs from 'yargs'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 import { requestInterface } from './interfaces'
 //import yargs from '@curlconverter/yargs-parser'
 //const URL = require('ur')
@@ -15,7 +16,7 @@ import { requestInterface } from './interfaces'
 // env.addFilter('isString', something => typeof something === 'string')
 // env.addFilter('isNumber', something => typeof something === 'number')
 
-const parseCurlCommand = (curlCommand:string) => {
+const parseCurlCommand = (curlCommand: string) => {
     // Remove newlines (and from continuations)
     curlCommand = curlCommand.replace(/\\\r|\\\n/g, '')
 
@@ -37,17 +38,17 @@ const parseCurlCommand = (curlCommand:string) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments:any = yargs
+    const parsedArguments: any = yargs(hideBin(process.argv))
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')
         .parse(curlCommand)
 
-    
+
     let cookieString
     let cookies
-    let url:string = parsedArguments._[1];
-	//url = url.replace(/'/g,"").replace(/"/g,"");
+    let url: string = parsedArguments._[1];
+    //url = url.replace(/'/g,"").replace(/"/g,"");
 
     // if url argument wasn't where we expected it, try to find it in the other arguments
     if (!url) {
@@ -116,7 +117,7 @@ const parseCurlCommand = (curlCommand:string) => {
         // note: cookie is case insensitive
         cookies = parse(cookieString.replace(/^Cookie: /gi, ''), cookieParseOptions)
     }
-    let method:string
+    let method: string
     if (parsedArguments.X === 'POST') {
         method = 'post'
     } else if (parsedArguments.X === 'PUT' ||
@@ -181,11 +182,11 @@ const parseCurlCommand = (curlCommand:string) => {
     }
 
     urlObject.search = null // Clean out the search/query portion.
-    const request= {
-        url: url.replace(/'/g,"").replace(/"/g,""),
-        urlWithoutQuery: decodeURIComponent(URL.format(urlObject)).replace(/'/g,"").replace(/"/g,"")
+    const request = {
+        url: url.replace(/'/g, "").replace(/"/g, ""),
+        urlWithoutQuery: decodeURIComponent(URL.format(urlObject)).replace(/'/g, "").replace(/"/g, "")
     } as requestInterface
-      
+
     if (compressed) {
         request.compressed = true
     }

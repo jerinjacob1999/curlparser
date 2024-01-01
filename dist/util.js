@@ -22,12 +22,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serializeCookies = void 0;
 const cookie_1 = require("cookie");
 const querystring = __importStar(require("query-string"));
 const URL = __importStar(require("url"));
-const yargs = __importStar(require("yargs"));
+const yargs_1 = __importDefault(require("yargs"));
+const helpers_1 = require("yargs/helpers");
 //import yargs from '@curlconverter/yargs-parser'
 //const URL = require('ur')
 //const querystring = require('query-string')
@@ -57,7 +61,7 @@ const parseCurlCommand = (curlCommand) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments = yargs
+    const parsedArguments = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')
