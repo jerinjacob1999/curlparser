@@ -1,5 +1,6 @@
-import parseCurlCommand,{serializeCookies} from '../../util'
 import jsesc from 'jsesc'
+import parseCurlCommand,{serializeCookies} from '../../util'
+
 
 const toNodeRequest = (curlCommand:string) => {
   const request = parseCurlCommand(curlCommand)

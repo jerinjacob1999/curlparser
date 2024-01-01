@@ -1,9 +1,12 @@
 "use strict";
 // Author: ssi-anik (sirajul.islam.anik@gmail.com)
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util");
+const util_1 = __importDefault(require("../util"));
 const query_string_1 = require("query-string");
-const jsesc_1 = require("jsesc");
+const jsesc_1 = __importDefault(require("jsesc"));
 //import 'string.prototype.startswith'
 function repr(value, isKey = false) {
     // In context of url parameters, don't accept nulls and such.
