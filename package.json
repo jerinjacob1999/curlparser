@@ -1,6 +1,6 @@
 {
   "name": "curlparser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Jerin Jacob",
   "license": "MIT",
   "main": "/dist/index.ts",
