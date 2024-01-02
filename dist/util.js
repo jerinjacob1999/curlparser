@@ -31,6 +31,7 @@ const cookie_1 = require("cookie");
 const query_string_1 = __importDefault(require("query-string"));
 const URL = __importStar(require("url"));
 const yargs_1 = __importDefault(require("yargs"));
+const helpers_1 = require("yargs/helpers");
 const parseCurlCommand = (curlCommand) => {
     var _a;
     // Remove newlines (and from continuations)
@@ -51,7 +52,7 @@ const parseCurlCommand = (curlCommand) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments = yargs_1.default
+    const parsedArguments = (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')

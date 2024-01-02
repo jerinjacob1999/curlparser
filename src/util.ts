@@ -2,6 +2,7 @@ import { parse } from 'cookie'
 import querystring from 'query-string'
 import * as URL from 'url'
 import yargs, { Arguments } from 'yargs'
+import { hideBin } from 'yargs/helpers'
 import { requestInterface } from './interfaces'
 
 const parseCurlCommand = (curlCommand: string) => {
@@ -26,7 +27,7 @@ const parseCurlCommand = (curlCommand: string) => {
     // after, since it will be taken as an argument to the flag rather than
     // interpreted as a positional argument.  Someone should add all the flags
     // likely to cause trouble here.
-    const parsedArguments: any = yargs
+    const parsedArguments: any = yargs(hideBin(process.argv))
         .boolean(['I', 'head', 'compressed', 'L', 'k', 'silent', 's'])
         .alias('H', 'header')
         .alias('A', 'user-agent')
